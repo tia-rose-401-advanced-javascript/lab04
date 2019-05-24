@@ -9,14 +9,35 @@ console.log(os.endianness());
 
 
 let code = '\'use strict\';\nlet people = [\'Johnny\', \'Cow and Chicken\', \'Freakazoid\'];\npeople.forEach(peeps => {\nconsole.log(peeps);\n});';
-
-fs.writeFile('./files/loop.js', code, (error) => {
-  if(error) throw error;
-  console.log(`writing ${code}`);
-});
+let str = code.split('');
+let dataOne = Buffer.from('');
 
 
+let writer = (source) => {
+  fs.writeFile('./files/loop.js', code, (error) => {
+    if(error) throw error;
+    console.log('Saved file');
+  });
+}; 
 
-let usingBuffer = (data) => {
-//using buffer
+let usingBuffer = (array) => {
+  array.forEach(element => {
+    dataOne = Buffer.concat([dataOne, Buffer.from(element)]);
+    console.log(dataOne);
+    data.forEach(element => {
+      console.log(element.split(','));
+    });
+  });
 };
+writer(str);
+usingBuffer(data);
+
+
+//------------
+// Part 2
+//-------------
+
+// fs.readFile('./files/pair-programming.txt',(error, contents) => {
+//   if(error) throw error;
+//   console.log(`reading ${contents}`);
+// });
