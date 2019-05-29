@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require ('fs');
+const reader = require('readline');
 
 let data = ['Johnny', 'Cow and Chicken', 'Freakazoid'];
 
@@ -37,9 +38,6 @@ usingBuffer(data);
 // Part 2
 //-------------
 
-
-
-
 let readerHTML = () => {
 
   fs.readFile('./files/pair-programming.txt',(error, contents) => {
@@ -64,3 +62,46 @@ let writerHTML = (test) => {
 
 readerHTML();
 writerHTML();
+
+//--------------Solution Code
+let tags = {};
+let answerArray = [];
+
+let createTag = (tag, buffer) => {
+  if(!tags[tag]){
+    tags[tag] = {
+      open: Buffer.from(`<${tag}>`),
+      close: Buffer.from(`<${tag}>`),
+    };
+  }
+  buffer = Buffer.concat([tags[tag].open, buffer, tags[tag].close]);
+  answerArray.push(buffer);
+};
+
+let fileWriter = (file) => {
+  let lineReader = reader.createInterface({
+    input: fs.createReadStream(file),
+  });
+
+  lineReader.on('line', function(line){
+    console.log('Making HTML tags');
+    if(line.match(/^[0-9]\./)){
+      createTag('h3', Buffer.from(line));
+    }else if(line.match(/\./)){
+      line.split('.').forEach(sentence => {
+        sentence && createTag('li', Buffer.from(sentence));
+      });
+    }else if(line){
+      createTag('h2', Buffer.from(line));
+    }
+  });
+
+  lineReader.on('close', () => {
+    fs.writeFile('./files/index.html', answerArray.join(' '), (error, data) => {
+      console.log('File is there');
+    });
+  });
+};
+
+fileWriter('./files/pair-programming.txt');
+module.exports = fileWriter, usingBuffer;
