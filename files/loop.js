@@ -1,5 +1,8 @@
 'use strict';
-let people = ['Johnny', 'Cow and Chicken', 'Freakazoid'];
-people.forEach(peeps => {
-console.log(peeps);
+
+let names = ['bob', 'jim', 'ted'];
+let loop = (names) => {  names.forEach((element) => {
+  console.log(element);
 });
+};
+loop(names);

@@ -38,31 +38,6 @@ usingBuffer(data);
 // Part 2
 //-------------
 
-let readerHTML = () => {
-
-  fs.readFile('./files/pair-programming.txt',(error, contents) => {
-    if(error) throw error;
-
-
-    const buffContents = Buffer.from(contents);
-    console.log(buffContents);
-    return buffContents;
-  });
-};
-
-let writerHTML = (test) => {
-  fs.writeFile('./files/index.html', test, (error) => {
-    if(error) throw error;
-    console.log('Saved file');
-  });
-};
-
-// writerHTML(readerHTML());
-// readerHTML(writerHTML);
-
-readerHTML();
-writerHTML();
-
 //--------------Solution Code
 let tags = {};
 let answerArray = [];
