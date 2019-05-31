@@ -24,9 +24,7 @@ let writer = (source) => {
 let usingBuffer = (array) => {
   array.forEach(element => {
     dataOne = Buffer.concat([dataOne, Buffer.from(element)]);
-    console.log(dataOne);
     data.forEach(element => {
-      console.log(element.split(','));
     });
   });
 };

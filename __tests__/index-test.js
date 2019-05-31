@@ -8,7 +8,7 @@ describe('Using Buffer Function', () => {
 
   it('should return error when given a bad file', done => {
     let files = ['bad.txt'];
-    reader.usingBuffer(files, (error, data) => {
+    reader.fileWriter(files, (error, data) => {
       expect(error).toBeDefined();
       done();
     });
